@@ -1,0 +1,193 @@
+CLASSNOTES-DAY16_2
+Today's schedule:
+    - Tell me about your framework
+    - Practice solutions
+        - parameterization
+        - scenario outlines
+    - Read some cucumber documentation
+    - Create some more utility methods in browser utils
+---------------------------------------------------------------------------------------------------
+- cucumber - junit
+- maven
+    - pom.xml dependencies
+- java
+- selenium
+- junit
+- pom design pattern
+    - store web elements once
+    - stale element exception
+- singleton design pattern
+    - driver instance
+- config.properties
+    - avoid hardcoding
+    - store important test data
+- util package
+    - driver
+    - configreader --> config.prop
+    - browserutils: 
+- BDD TYPE approach:
+    - business people understanding
+    - gherkin
+- TDD
+- Feature (class) scenarios
+- Runner class: tags
+- Hooks
+- reports plugin
+
+
+- why did you create singleton design pattern
+- how did you implement singleton
+
+
+- why did you implement pom design pattern
+- how did you implement pom design pattern
+
+
+- how do you implement 1 scenario
+---------------------------------------------------------------------------------------------------
+
+
+- java
+- selenium
+- maven
+    - pom.xml
+- cucumber
+    - bdd
+- testng, junit
+- design patterns
+    - pom design pattern: store web elements
+        pagefactory
+    - singleton design pattern
+        - same driver instance across the project
+- utilities
+    - driver util
+        - private constructor
+        - getterMethod
+    - configReader
+        - reads from .properties file
+        - how to read
+    - browser utils
+        - bunch of methods for different pages
+- bdd approach 
+    - non-technical people
+    - runner class
+        - tags
+    - step definitions
+
+
+- .properties : centralize important test data
+- hooks
+- plugin for html report
+---------------------------------------------------------------------------------------------------
+- java
+- maven
+    - pom.xml
+- selenium webdriver
+- cucumber -> bdd tool
+    - junit
+- ddt
+    - get data from
+     - properties
+     -excel sheet
+     - scenario outline
+     - feature file parameterization
+- bdd : gherkin
+- singleton
+- pom design
+- many utility classes
+    - driver utility
+    - browser util
+    - configReader
+- pom design
+    - web elements
+    - methods for the page
+
+
+- trigger tests from runner class
+    - what test to run
+    - plugins
+    - glue path
+    - feature path    
+---------------------------------------------------------------------------------------------------
+- Where do we control or trigger our framework?
+    - Runner class
+    - TestRunner
+    - CukesRunner
+
+
+- What aspects of the project we control from Runner class?    
+    - plugin    : determines what type of report we want to generate with our project, and also where we want to store.
+    - features  : we provide the path of the 'features' directory and let our project know where to find all of the feature files.
+    - glue         : glue gives path to the package of the step_definitions
+    - dryrun    : dryRun determines if we want to execute the step_definitions or not
+        - if dryRun is true: dryRun is turned on, and step definitions are turned off (will not run)
+        - if dryRUn is false: dryRun is turned off, and step defitions are turned on (will run)
+
+
+        - this is mostly used for when implementing new steps and step defitions, and we do not want to run the code and open browser etc, just to get the snippets.
+        - we turn off the step_definitions and just generate snippets
+
+
+    - tags:
+        - What are tags and why we use them?
+        - Tags allows us to create different scenario suites or groups to run 
+        - we can include, or exclude different feature files or scenarios using tags.
+
+
+
+
+    - or:
+        - less specific way of creating group.
+        - @a or @b
+        - if a scenario or feature has either @a or @b, it will be executed.
+        - this is similar to || 'or' in java
+
+
+    - and 
+        - more specific way of creating group
+        - @a and @b
+        - the scenario MUST have both @a and @b to be able to get executed.
+        - this is similar to && 'and' in java
+
+
+    - and not
+        - if we want to exclude some certain @tag, group of feature files or scenarios, we can put the tag on top of them, and use with 'and not'
+        - they will not be executed
+
+
+        @a or @b and not @c
+---------------------------------------------------------------------------------------------------
+- Background:
+    - Used to create pre-conditions for Scenarios in same feature file.
+    - Background keyword allows us to add repeating steps 1 time, and they will be working with all of the scenarios in the SAME FEATURE file
+
+
+    - Background can only effect the scenarios that are in the same feature file
+    - I cannot write background in one feature file and have it run for other scenarios in other feature files
+
+
+- Hooks:
+    - Hooks are used to create pre- and post- conditions for scenarios and steps.
+    - When we are using Hooks, we need to be extra careful because all the logic we create will be implements for all of the scenarios and/or steps in our project.
+    - We can specify using @tags if we want the pre- or post- condition to be applying to only certain steps or scenarios
+---------------------------------------------------------------------------------------------------
+PARAMETERIZATION: CUCUMBER EXPRESSIONS
+    - this allow us to pass arguments to our steps from feature files
+    - allows us to do data driven testing
+
+
+- Datatables:
+    - Why do we use the data tables?
+    - Parameterization allows us to pass multiple arg in one step
+    - But we cannot pass collection types under one step using parameterization
+    - Data tables allows us to pass collection types under one step
+    - We can pass List, Map, List of Maps, Maps of Maps etc...
+
+
+- Scenario outlines
+    - Using scenario outlines, we can create a data table of examples, and run our scenario against this table.
+    - Instead of using "Scenario" keyword, we use "Scenario Outline keyword"
+    - After this step, it will not compile unless we provide a table of "Examples"
+    - The arguments we provide in our steps become "header" for the "examples table"
+    - and we provide rest of the data under headers.
+    - we can pass more than one examples table under one scenario outline
